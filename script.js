@@ -15,13 +15,14 @@ let roligaSaker =   ["lägga pussel"
 // skapa lista från array, listan visas i HTML
 ListaStart();
 ListaItem();
-ListaItemContent();
+//ListaItemContent();
 ListaStopp();
 
 // funktion ListaStart, skapar start-taggen
 function ListaStart()
 {
     // skapa en onumrerad lista
+    // 'afterbegin' visar att listan ska vara ligga först i div-taggen
     divTag.insertAdjacentHTML("afterbegin" 
                             ,"<ul>Detta tycker Karin är roligt");
 
@@ -38,7 +39,14 @@ function ListaItem()
     // skapa en tom li-tag för varje rad i arrayen
     for (let ind = 0 ; ind<roligaSaker.length ; ind++)
     {
-        ulTag.insertAdjacentHTML("afterend" ,"<li></li>");    
+        // varje li-tag som skapas består av 
+        // start-tag, data fr arrayen, stopp-tag
+        // 'afterbegin' = första child i elementet
+        // 'afterend' = efter elementet
+        // 'beforebegin' = före elementet
+        // 'beforeend' = sista child i elementet
+        ulTag.insertAdjacentHTML("beforeend" 
+                ,"<li>" + roligaSaker[ind] + "</li>");    
 
         console.log("<li>" + roligaSaker[ind] + "</li>");
     }
@@ -56,12 +64,13 @@ function ListaItemContent()
         // arrayraden läggs ut till den listrad som skapas
         var radText = document.createTextNode(roligaSaker[ind]);
         liTag.appendChild(radText);
+        console.log("detta ska inte komma ut!!!!!!");
     }
 }
 
 // funktion ListaStopp, skapar stopp-taggen
 function ListaStopp()
 {
-        divTag.insertAdjacentHTML("beforeend" ,"</li>");
+        divTag.insertAdjacentHTML("afterbegin" ,"</li>");
         console.log("ListaStopp");
 }
