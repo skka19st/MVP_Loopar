@@ -51,30 +51,24 @@ function ListaItem()
 // en koppling till den del av html-dokumentet som ska uppdateras
 let divTag2 = document.getElementById("divId2");
 
-// skapa en textrad och koppla den till div-taggen
+// textrad till div-taggen
 var text = document.createTextNode("Här börjar den andra div-taggen");
 divTag2.appendChild(text);
 
-// skapa lista med rubrik, koppla listan till div-taggen
+// ul-lista m tillhörande rubrik
+// ul-listan ska ligga i div-taggen
 var ulTag2 = document.createElement("ul");
-text = document.createTextNode("Roliga lista enl create o append");
+var text = document.createTextNode("Roliga listan enl create o append");
 ulTag2.appendChild(text);
 divTag2.appendChild(ulTag2);
 
-// skapa detaljrad och koppla den till listan
-var liTag2 = document.createElement("li");
-text = document.createTextNode("detaljrad");
-liTag2.appendChild(text);
-ulTag2.appendChild(liTag2);
-
-// skapa detaljrad och koppla den till listan
-// en ny 'createElement' måste göras för att börja på ett nytt objekt
-liTag2 = document.createElement("li");
-text = document.createTextNode("detaljrad2");
-liTag2.appendChild(text);
-ulTag2.appendChild(liTag2);
-
-
-
-
-
+// listItem med data fr arrayen här i JavaScriptet
+// listItem ska ligga i ul-taggen
+// en ny 'createElement' måste göras för varje nytt objekt/rad
+for (let ind = 0 ; ind<roligaSaker.length ; ind++)
+{
+    var liTag2 = document.createElement("li");
+    var text = document.createTextNode(roligaSaker[ind]);
+    liTag2.appendChild(text);
+    ulTag2.appendChild(liTag2);
+}
