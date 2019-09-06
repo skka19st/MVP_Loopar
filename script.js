@@ -1,10 +1,12 @@
 
 // i den här filen finns javascript-kod
 
-// kopplingar till html-sidan
-let divTag = document.getElementById("divId");
+// minnesanteckning ang 'insertAdjacentHTML'
+// 'afterbegin' = första child i elementet 
+// 'afterend' = efter elementet
+// 'beforebegin' = före elementet
+// 'beforeend' = sista child i elementet
 
-// ------------------------------------------------------------
 // en array med saker jag tycker är roligt
 let roligaSaker =   ["lägga pussel" 
                     ,"se på film"
@@ -12,21 +14,19 @@ let roligaSaker =   ["lägga pussel"
                     ,"shoppa med min dotter"
                     ,"cykelutflykter med min son"];
 
-// skapa lista från array, listan visas i HTML
-ListaStart();
+// kopplingar till html-sidan (div-taggen)
+let divTag = document.getElementById("divId");
+
+// skapa ul-lista med data från array
+// 'afterbegin' = först i div-taggen
+divTag.insertAdjacentHTML("afterbegin" 
+                        ,"<ul>Detta tycker Karin är roligt");
+
+// här skapas listans detaljrader, li-taggarna
 ListaItem();
-ListaItemContent();
-ListaStopp();
 
-// funktion ListaStart, skapar start-taggen
-function ListaStart()
-{
-    // skapa en onumrerad lista
-    divTag.insertAdjacentHTML("afterbegin" 
-                            ,"<ul>Detta tycker Karin är roligt");
-
-    console.log("ListaStart");
-}
+// stopp-tagg för listan
+divTag.insertAdjacentHTML("afterbegin" ,"</ul>");
 
 // funktion ListaItem, skapar list-rader (html-kod)
 function ListaItem()
@@ -35,33 +35,40 @@ function ListaItem()
     // koppling via TagName kräver indexering (ej unikt)
     let ulTag = document.getElementsByTagName("ul")[0];
 
-    // skapa en tom li-tag för varje rad i arrayen
+    // varje li-tag som skapas består av 
+    // start-tag, data fr arrayen, stopp-tag
     for (let ind = 0 ; ind<roligaSaker.length ; ind++)
     {
-        ulTag.insertAdjacentHTML("afterend" ,"<li></li>");    
+        // 'beforeend' = lägg den efter det som redan finns
+        ulTag.insertAdjacentHTML("beforeend" 
+                ,"<li>" + roligaSaker[ind] + "</li>");    
 
         console.log("<li>" + roligaSaker[ind] + "</li>");
     }
 }
+// ------------------------------------------------------------------
 
-// funktion ListaItemContent, skapar innehåll i li-taggarna
-function ListaItemContent()
+// en koppling till den del av html-dokumentet som ska uppdateras
+let divTag2 = document.getElementById("divId2");
+
+// textrad till div-taggen
+var text = document.createTextNode("Här börjar den andra div-taggen");
+divTag2.appendChild(text);
+
+// ul-lista m tillhörande rubrik
+// ul-listan ska ligga i div-taggen
+var ulTag2 = document.createElement("ul");
+var text = document.createTextNode("Roliga listan enl create o append");
+ulTag2.appendChild(text);
+divTag2.appendChild(ulTag2);
+
+// listItem med data fr arrayen här i JavaScriptet
+// listItem ska ligga i ul-taggen
+// en ny 'createElement' måste göras för varje nytt objekt/rad
+for (let ind = 0 ; ind<roligaSaker.length ; ind++)
 {
-    // innehållet i arrayen läggs ut till skärmen
-    for (let ind = 0 ; ind<roligaSaker.length ; ind++)
-    {
-        // koppling via TagName kräver indexering (ej unikt)
-        let liTag = document.getElementsByTagName("li")[ind];
-
-        // arrayraden läggs ut till den listrad som skapas
-        var radText = document.createTextNode(roligaSaker[ind]);
-        liTag.appendChild(radText);
-    }
-}
-
-// funktion ListaStopp, skapar stopp-taggen
-function ListaStopp()
-{
-        divTag.insertAdjacentHTML("beforeend" ,"</li>");
-        console.log("ListaStopp");
+    var liTag2 = document.createElement("li");
+    var text = document.createTextNode(roligaSaker[ind]);
+    liTag2.appendChild(text);
+    ulTag2.appendChild(liTag2);
 }
