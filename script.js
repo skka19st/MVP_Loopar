@@ -1,5 +1,43 @@
 
 // i den här filen finns javascript-kod
+//KodVersion01();
+WrapTagg();
+
+function WrapTagg()
+{
+    // används för att förkorta kod-raderna: 
+    var kodText;    
+    var taggInUse;   
+
+    // div-tagg som kopplas till body-taggen
+    // 'beforeend' räknas i förhållande till body-taggen
+    // dvs överliggande tagg
+    kodText = "<div id='wrap'></div>";
+    document.body.insertAdjacentHTML("afterbegin",kodText);
+
+    // list-tagg som ska ligga under wrap-taggen
+    taggInUse = document.getElementById("wrap");
+    kodText = "<ul id='lista'> Detta är kul </ul>";
+    taggInUse.insertAdjacentHTML("beforeend",kodText);
+
+    // en array med saker jag tycker är roligt
+    let roligaSaker =   ["lägga pussel" 
+                        ,"se på film"
+                        ,"läsa" 
+                        ,"shoppa med min dotter"
+                        ,"cykelutflykter med min son"];
+
+    // skriv ut innehållet i arrayen till list-taggen
+    taggInUse = document.getElementById("lista");
+    for (let ind = 0 ; ind<roligaSaker.length ; ind++)
+    {
+        kodText = "<li>" + roligaSaker[ind] +  "</li>";
+        taggInUse.insertAdjacentHTML("beforeend",kodText);    
+    }
+}
+
+ function KodVersion01()
+ {
 
 // minnesanteckning ang 'insertAdjacentHTML'
 // 'afterbegin' = första child i elementet 
@@ -72,3 +110,4 @@ for (let ind = 0 ; ind<roligaSaker.length ; ind++)
     liTag2.appendChild(text);
     ulTag2.appendChild(liTag2);
 }
+ }
